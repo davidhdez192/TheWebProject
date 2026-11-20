@@ -1,16 +1,7 @@
 import InfoCards from "./InfoCards";
-import { useState } from "react";
+import CatFacts from "./CatFacts";
 
 function Body() {
-  const facts = [
-    "Cats sleep for around 12–16 hours a day.",
-    "A group of cats is called a clowder.",
-    "Cats use their whiskers to help navigate spaces.",
-    "Cats have five toes on their front paws!",
-  ];
-
-  const [factIndex, setFactIndex] = useState(0);
-
   return (
     <main id="home">
       <h1>Welcome to Mieu's Kitty Litter</h1>
@@ -32,13 +23,7 @@ function Body() {
         </p>
       </section>
 
-      <section id="cat-facts">
-        <h2>Real Cat Facts</h2>
-        <p>{facts[factIndex]}</p>
-        <button onClick={() => setFactIndex((factIndex + 1) % facts.length)}>
-          Next cat Fact
-        </button>
-      </section>
+      <CatFacts />
 
       <section id="cat-chibi">
         <h2>Cat Chibi</h2>
