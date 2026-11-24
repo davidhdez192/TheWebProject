@@ -1,13 +1,37 @@
+import { Link } from "react-router-dom";
+
 function Header() {
   return (
-    <header>
-      <h1> Mieu's Kitty Litter</h1>
+    <header className="site-header">
+      <div className="header-container">
+        {/* <a href="/" className="logo">
+          {"Mieu's Kitty Litter"}
+        </a> */}
 
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <Link to="/" className="logo-banner">
+          Mieu's Kitty Litter
+        </Link>
+
+        <nav className="main-nav">
+          <ul className="nav-list">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/cat-breeds">Cat Breeds</Link>
+            </li>
+            <li>
+              <a href="/cat-gallery">Gallery</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
