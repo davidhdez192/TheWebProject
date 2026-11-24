@@ -4,8 +4,15 @@ header {
     background: #318cb0;
     background: linear-gradient(90deg,rgba(49, 140, 176, 0.99) 0%, rgba(108, 102, 179, 0.96) 50%, rgba(17, 13, 66, 1) 100%);
     padding: 20px;
-    text-align: center;
+    display: flex;
+    gap: 30px;
+
+    /* Keeps header at top of page*/
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
+
 
 header a {
     color: white;
@@ -161,6 +168,78 @@ section {
   white-space: nowrap;
 }
 
+.drag-content {
+  position: relative;
+}
+
+/* Hides the player without unmounting it so audio keeps playing */
+.draggable-box.is-minimized .drag-content {
+  display: none;
+}
+
+/* Covers the iframe while dragging */
+.drag-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.header-container {
+    width: 100%;
+    height: 56px;
+    margin: 0 auto;
+    padding: 0 clamp(0.5rem, 2.5vw, 1.5rem);
+    display: flex;
+    justify-content: space-between; /* Pushes logo left, nav right */
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color:  #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.logo-banner {
+  /* Layout & Sizing */
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  justify-content: center;
+  padding: 0 clamp(0.5rem, 1.5vw, 1rem);
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  /* Background Image with a dark tint so white text pops */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                    url('/images/miu_00047_.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Text Styling */
+  color: #ffffff;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Extra readability */
+}
+
+/* Navigation Wrapper (Safety Net for Ultra-Narrow Screens) */
+.main-nav {
+  min-width: 0; /* Crucial: allows flex item to shrink below its content size */
+  overflow-x: auto; /* Lets users swipe horizontally if screen gets tiny */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
+
+.main-nav::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome/Safari/Edge */
+}
+
 /* Overrides global `button` gradient, padding, and hover jump */
 .minimize-btn {
   background: transparent;
@@ -180,20 +259,25 @@ section {
   box-shadow: none;
 }
 
-.drag-content {
-  position: relative;
+.nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.55rem, 2vw, 1.5rem);
+    white-space: nowrap;
 }
 
-/* Hides the player without unmounting it so audio keeps playing */
-.draggable-box.is-minimized .drag-content {
-  display: none;
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: clamp(0.78rem, 1.8vw, 0.95rem);
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
-/* Covers the iframe while dragging */
-.drag-shield {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
+.nav-link:hover,
+.nav-link{
+    color: #ffffff;
 }
 
 .info-card {
@@ -278,6 +362,17 @@ section {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+.site-header {
+    background-color: #13161a;
+    color:#ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);    
+}
+
+
+
 /* Responsive styles for mobile devices */
 @media (max-width: 600px) {
     header {
@@ -299,6 +394,15 @@ section {
 
     footer {
         padding: 15px;
+    }
+
+    .header-container {
+    flex-direction: column;
+    gap: 1rem;
+    }
+  
+    .nav-list {
+        gap: 1.25rem;
     }
 
 }
