@@ -1,11 +1,26 @@
 import InfoCards from "./InfoCards";
 import CatFacts from "./CatFacts";
+import DraggableBox from "./DraggableBox";
+import MediaPlayer from "./MediaPlayer";
+
+const tracks: Array<{ title: string; artist: string; src: string }> = [
+  { title: "LYSINE", artist: "Yoshimi Kudou", src: "/music/LYSINE.mp3" },
+  {
+    title: "DEOXYRIBOSE",
+    artist: "Yoshimi Kudou",
+    src: "/music/DEOXYRIBOSE.mp3",
+  },
+];
 
 function Body() {
   return (
     <main id="home">
       <h1>Welcome to Mieu's Kitty Litter</h1>
       <p>Your one-stop shop for all things cat-related!</p>
+
+      <DraggableBox>
+        <MediaPlayer tracks={tracks} />
+      </DraggableBox>
 
       <InfoCards />
 

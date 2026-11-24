@@ -96,15 +96,12 @@ section {
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 40px;
+
 }
 
 .cards-container a {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 250px;
-
     color: inherit;
     text-decoration: none;
     display: flex;
@@ -115,6 +112,88 @@ section {
 
 .cards-container a .info-card {
     width: 100%;
+}
+
+.draggable-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: #111;
+  color: #eee;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition: transform 0.2s ease, width 0.2s ease; /* smooth snap to corner */
+}
+
+.draggable-box.is-dragging {
+  transition: none; /* follow the cursor instantly */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.draggable-box.is-minimized {
+  width: 220px; /* compact bar width when collapsed */
+  opacity: 0.4;
+}
+
+.drag-handle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #1c1c1c;
+  color: #eee;
+  font: 500 13px system-ui, sans-serif;
+  cursor: grab;
+  user-select: none;
+  touch-action: none; /* required so touch dragging works on mobile */
+}
+
+.is-dragging .drag-handle {
+  cursor: grabbing;
+}
+
+.drag-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Overrides global `button` gradient, padding, and hover jump */
+.minimize-btn {
+  background: transparent;
+  color: #eee;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.minimize-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: none;
+  box-shadow: none;
+}
+
+.drag-content {
+  position: relative;
+}
+
+/* Hides the player without unmounting it so audio keeps playing */
+.draggable-box.is-minimized .drag-content {
+  display: none;
+}
+
+/* Covers the iframe while dragging */
+.drag-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
 }
 
 .info-card {
@@ -130,7 +209,6 @@ section {
 }
 
 
-
 .info-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
@@ -143,6 +221,38 @@ section {
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 15px;
+}
+
+.media-player {
+  width: 320px;
+  padding: 16px;
+  background: #151515;
+  color: #eee;
+  font: 14px system-ui, sans-serif;
+}
+
+.mp-info { display: flex; flex-direction: column; margin-bottom: 12px; }
+.mp-info span { color: #888; font-size: 12px; }
+
+.mp-progress { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+.mp-progress input { flex: 1; }
+
+.mp-controls { display: flex; align-items: center; gap: 6px; margin: 12px 0; }
+.mp-controls button {
+  background: none; border: none; color: inherit; padding: 4px 6px;
+  font-size: 18px; cursor: pointer; opacity: 0.8; flex-shrink: 0;
+}
+.mp-controls button:hover, .mp-controls button.active { opacity: 1; transform:none; box-shadow: none; }
+.mp-controls .play { font-size: 26px; }
+.mp-volume { margin-left: auto; width: 70px; min-width: 0; }
+
+.mp-playlist { list-style: none; margin: 0; padding: 0; max-height: 120px; overflow-y: auto; }
+.mp-playlist li { padding: 6px 8px; cursor: pointer; border-radius: 6px; }
+.mp-playlist li:hover { background: #222; }
+.mp-playlist li.current { background: #2a2a2a; color: #4ade80; }
+
+.minimize-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .cat-facts {
