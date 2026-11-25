@@ -6,11 +6,27 @@ import CatBreeds from "./pages/CatBreeds";
 import Layout from "./components/Layout";
 import CatGallery from "./pages/CatGallery";
 import GalleryLayout from "./components/GalleryLayout";
+import MediaPlayer from "./components/MediaPlayer";
+import DraggableBox from "./components/DraggableBox";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+const tracks: Array<{ title: string; artist: string; src: string }> = [
+  { title: "LYSINE", artist: "Yoshimi Kudou", src: "/music/LYSINE.mp3" },
+  {
+    title: "DEOXYRIBOSE",
+    artist: "Yoshimi Kudou",
+    src: "/music/DEOXYRIBOSE.mp3",
+  },
+];
+
 function App() {
   return (
+    <>
+      <DraggableBox>
+        <MediaPlayer tracks={tracks} />
+      </DraggableBox>
+
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
@@ -25,6 +41,8 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </>
+    
   );
 }
 
